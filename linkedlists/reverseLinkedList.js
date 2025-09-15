@@ -68,6 +68,25 @@ class LinkedList {
         return null
     }
 
+    reverse(){
+        // I want the head to be pointed to its next value until there are no values left
+
+        let curr = this.head 
+        let prev = null 
+        let next = curr.next
+        while (curr) {
+            next = curr.next 
+            curr.next = prev 
+            prev = curr
+            curr = next
+           // we are turning this baby around
+           // that means that we will pop off the current node
+           // then it will just be a floating head
+           // when its the head, we point it to null
+           // then we point the next of the next node to the prev node
+        }
+        this.head = prev 
+    }
 }
 
 class Node {
@@ -87,7 +106,8 @@ list.pretty()
 console.log("SEARCH", list.search(1))
 console.log("SEARCH", list.search(3))
 console.log("SEARCH", list.search(999))
-
+list.reverse()
+console.log("THE REVERSED LIST")
 list.pretty()
 console.log("DELETED", list.delete(1))
 console.log("DELETED", list.delete(2))
