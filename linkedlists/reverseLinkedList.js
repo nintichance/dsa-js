@@ -87,6 +87,21 @@ class LinkedList {
         }
         this.head = prev 
     }
+
+   reverseRecursively(head) {
+    // when we get to the final call, the call stack will start popping calls off the top, starting with the last call if it was returned
+    // if we no longer can continue, we need to break out of the loop
+    // in other words, if we cannot pass the value into the recursive call because it is null, then we need to pop the next call off the stack because the current call is complete
+    // we need to set the head to the last item, which is the value of the parameter in the first method that needs has been popped off the stack
+    if (!head.next) {
+        this.head = head
+        return
+    }
+    // we need to know what the current head is pointing to in order to point it to the previous head that has been orphaned
+    const temp = head.next // head is not 1 in this call, this.head is 1 and head is 3, therefore the temp should store 2
+    temp.next = head // the current head will fill the space of the last item in the list
+    head.next = null // since its the last item, it needs to point to nothing
+   }
 }
 
 class Node {
@@ -108,6 +123,9 @@ console.log("SEARCH", list.search(3))
 console.log("SEARCH", list.search(999))
 list.reverse()
 console.log("THE REVERSED LIST")
+list.pretty()
+list.reverseRecursively(list.head)
+console.log("THE RECURSIVELY REVERSED LIST")
 list.pretty()
 console.log("DELETED", list.delete(1))
 console.log("DELETED", list.delete(2))
